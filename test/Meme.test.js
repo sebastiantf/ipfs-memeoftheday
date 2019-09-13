@@ -15,4 +15,14 @@ contract("Meme", function(accounts) {
       assert.notEqual(address, "");
     });
   });
+
+  describe("memeHash", () => {
+    it("updates memeHash", async () => {
+      let memeHash = "abc123";
+      await memeInstance.set(memeHash);
+
+      const result = await memeInstance.get();
+      assert.equal(result, memeHash);
+    });
+  });
 });
