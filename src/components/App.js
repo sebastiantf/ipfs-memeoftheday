@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 
+const ipfsClient = require("ipfs-http-client");
+const ipfs = ipfsClient({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +27,20 @@ class App extends Component {
       // console.log(this.state.buffer);
     };
   };
+
+  uploadToIpfs = event => {
+    event.preventDefault();
+    console.log("adding to IPFS..");
+    ipfs.add(this.state.buffer, (error, result) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      console.log("IPFS add result: ", result);
+      console.log("file added to IPFS.");
+    });
+  };
+
   render() {
     return (
       <div>
@@ -40,6 +57,7 @@ class App extends Component {
                   <img src="#" className="App-logo" alt="" />
                 </a>
                 <h1 className="header">Upload Meme</h1>
+                <form onSubmit={this.uploadToIpfs}>
                   <input type="file" onChange={this.captureFile} />
                   <input type="submit" />
                 </form>
