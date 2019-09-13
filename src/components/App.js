@@ -82,6 +82,13 @@ class App extends Component {
           <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#" target="_blank" rel="noopener noreferrer">
             Meme Of The Day
           </a>
+          <ul className="navbar-nav px-2">
+            <li className="nav-item">
+              <a href="#" className="nav-link">
+                <span className="text-white">{this.state.account}</span>
+              </a>
+            </li>
+          </ul>
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
