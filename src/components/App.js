@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
+import Web3 from "web3";
 
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
 
 class App extends Component {
+  async componentWillMount() {
+    await this.loadWeb3();
+  }
+
   constructor(props) {
     super(props);
 
@@ -13,6 +18,17 @@ class App extends Component {
       buffer: null,
       memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
     };
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      alert("Please install MetaMask!");
+    }
   }
 
   captureFile = event => {
