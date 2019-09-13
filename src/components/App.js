@@ -64,8 +64,12 @@ class App extends Component {
                 </a>
                 <h1 className="header">Upload Meme</h1>
                 <form onSubmit={this.uploadToIpfs}>
-                  <input type="file" onChange={this.captureFile} />
-                  <input type="submit" />
+                  <label className="btn btn-primary">
+                    Browse <input type="file" hidden onChange={this.captureFile} />
+                  </label>
+                  <label className="btn btn-primary">
+                    Submit <input type="submit" hidden />
+                  </label>
                 </form>
               </div>
             </main>
