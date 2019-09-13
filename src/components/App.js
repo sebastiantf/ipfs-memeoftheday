@@ -8,6 +8,7 @@ const ipfs = ipfsClient({ host: "ipfs.infura.io", port: "5001", protocol: "https
 class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
+    await this.loadAccount();
   }
 
   constructor(props) {
@@ -16,7 +17,8 @@ class App extends Component {
     this.state = {
       filename: null,
       buffer: null,
-      memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
+      memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf",
+      account: null
     };
   }
 
@@ -29,6 +31,13 @@ class App extends Component {
     } else {
       alert("Please install MetaMask!");
     }
+  }
+
+  async loadAccount() {
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    this.setState({ account: accounts[0] });
+    // console.log(this.state.account);
   }
 
   captureFile = event => {
