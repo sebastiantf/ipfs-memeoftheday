@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      buffer: null
+      buffer: null,
+      memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
     };
   }
 
@@ -28,6 +29,8 @@ class App extends Component {
     };
   };
 
+  // Example file hash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
+  // Example URL: "https://ipfs.infura.io/ipfs/QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
   uploadToIpfs = event => {
     event.preventDefault();
     console.log("adding to IPFS..");
@@ -54,7 +57,7 @@ class App extends Component {
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
                 <a href="#" target="_blank" rel="noopener noreferrer">
-                  <img src="#" className="App-logo" alt="" />
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`} className="App-logo" alt="" />
                 </a>
                 <h1 className="header">Upload Meme</h1>
                 <form onSubmit={this.uploadToIpfs}>
