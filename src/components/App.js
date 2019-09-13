@@ -17,7 +17,11 @@ class App extends Component {
                 <a href="#" target="_blank" rel="noopener noreferrer">
                   <img src="#" className="App-logo" alt="" />
                 </a>
-                <h1>Upload Meme</h1>
+                <h1 className="header">Upload Meme</h1>
+                <form>
+                  <input type="file" />
+                  <input type="submit" />
+                </form>
               </div>
             </main>
           </div>
