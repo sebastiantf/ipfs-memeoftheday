@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      filename: null,
       buffer: null,
       memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
     };
@@ -19,6 +20,8 @@ class App extends Component {
     console.log("capturing file...");
 
     const file = event.target.files[0];
+    const filename = file.name;
+    this.setState({ filename });
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
@@ -33,7 +36,7 @@ class App extends Component {
   // Example URL: "https://ipfs.infura.io/ipfs/QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf"
   uploadToIpfs = event => {
     event.preventDefault();
-    console.log("adding to IPFS..");
+    console.log("adding", this.state.filename, "to IPFS..");
     ipfs.add(this.state.buffer, (error, result) => {
       if (error) {
         console.error(error);
@@ -71,6 +74,7 @@ class App extends Component {
                     Submit <input type="submit" hidden />
                   </label>
                 </form>
+                <p>{this.state.filename}</p>
               </div>
             </main>
           </div>
