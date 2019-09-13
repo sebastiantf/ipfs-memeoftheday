@@ -2,6 +2,28 @@ import React, { Component } from "react";
 import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      buffer: null
+    };
+  }
+
+  captureFile = event => {
+    event.preventDefault();
+    console.log("capturing file...");
+
+    const file = event.target.files[0];
+    const reader = new window.FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      const buffer = Buffer(reader.result);
+      this.setState({ buffer });
+      console.log("file captured.");
+      // console.log(this.state.buffer);
+    };
+  };
   render() {
     return (
       <div>
@@ -18,8 +40,7 @@ class App extends Component {
                   <img src="#" className="App-logo" alt="" />
                 </a>
                 <h1 className="header">Upload Meme</h1>
-                <form>
-                  <input type="file" />
+                  <input type="file" onChange={this.captureFile} />
                   <input type="submit" />
                 </form>
               </div>
