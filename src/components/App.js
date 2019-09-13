@@ -40,6 +40,9 @@ class App extends Component {
         return;
       }
       console.log("IPFS add result: ", result);
+      const memeHash = result[0].hash;
+      this.setState({ memeHash });
+      console.log("Hash:", memeHash);
       console.log("file added to IPFS.");
     });
   };
