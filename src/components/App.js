@@ -11,6 +11,7 @@ class App extends Component {
     await this.loadWeb3();
     await this.loadAccount();
     await this.loadContract();
+    await this.loadMemeHash();
   }
 
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
     this.state = {
       filename: null,
       buffer: null,
+      memeHash: "",
       account: null,
       memeContract: null
     };
@@ -64,6 +66,17 @@ class App extends Component {
       alert("Smart Contract not deployed to the detected network!");
     }
   }
+
+  async loadMemeHash() {
+    // Load MemeHash
+    // functions in smart contracts can be called using contract.methods.function().call() without sending a transaction that costs gas
+    const memeContract = this.state.memeContract;
+    console.log("Fetching memeHash..");
+    const memeHash = await memeContract.methods.get().call();
+    console.log("MemeHash:", memeHash);
+    this.setState({ memeHash });
+  }
+
   captureFile = event => {
     event.preventDefault();
     console.log("capturing file...");
