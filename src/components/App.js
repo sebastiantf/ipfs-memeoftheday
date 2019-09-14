@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import MemeAbi from "../abis/Meme";
 import Web3 from "web3";
 
 const ipfsClient = require("ipfs-http-client");
@@ -9,6 +10,7 @@ class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadAccount();
+    await this.loadContract();
   }
 
   constructor(props) {
@@ -17,8 +19,8 @@ class App extends Component {
     this.state = {
       filename: null,
       buffer: null,
-      memeHash: "QmeSxTw5TovftWvFDhfzMk9KB98qBhDRn9mFQNgLnDuByf",
-      account: null
+      account: null,
+      memeContract: null
     };
   }
 
@@ -35,11 +37,33 @@ class App extends Component {
 
   async loadAccount() {
     const web3 = window.web3;
+    // Load Account
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
     // console.log(this.state.account);
   }
 
+  async loadContract() {
+    const web3 = window.web3;
+    // Load Meme Smart Contract
+    // Use web3.eth.Contract to fetch the contract. It requires the abi and contractAddress as parameters
+    // abi and contractAddress can be fetched from the abi json. It is imported as MemeAbi from "../abis/Meme"
+    // abi and contractAddress need to be fetched from the correct network where the contract is deployed
+    // network id is fetched using web3.eth.net.getId()
+    console.log("Fetching smart contract..");
+    const networkId = await web3.eth.net.getId();
+    const networkData = MemeAbi.networks[networkId];
+    if (networkData) {
+      const abi = MemeAbi.abi;
+      const contractAddress = networkData.address;
+      console.log("Meme Contract address: ", contractAddress);
+      const memeContract = await web3.eth.Contract(abi, contractAddress);
+      console.log("Smart Contract fetched.");
+      this.setState({ memeContract });
+    } else {
+      alert("Smart Contract not deployed to the detected network!");
+    }
+  }
   captureFile = event => {
     event.preventDefault();
     console.log("capturing file...");
