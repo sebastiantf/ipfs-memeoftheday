@@ -106,9 +106,15 @@ class App extends Component {
       }
       console.log("IPFS add result: ", result);
       const memeHash = result[0].hash;
-      this.setState({ memeHash });
       console.log("Hash:", memeHash);
       console.log("file added to IPFS.");
+
+      console.log("Adding new hash to blockchain..");
+      const memeContract = this.state.memeContract;
+      memeContract.methods.set(memeHash).send({ from: this.state.account }, r => {
+        console.log("Hash added to blockchain.");
+        this.setState({ memeHash });
+      });
     });
   };
 
