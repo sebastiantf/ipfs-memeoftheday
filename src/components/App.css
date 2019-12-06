@@ -27,3 +27,12 @@ body.dark {
 #light-dark-toggle:hover{
   cursor: pointer;
 }
+
+@media (max-width:768px) {
+  .navbar ul {
+    display: none;
+  }
+  .navbar-brand {
+    text-align: center;
+  }
+}
