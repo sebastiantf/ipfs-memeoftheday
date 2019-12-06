@@ -24,3 +24,6 @@ body.dark {
   background-color: #212121 !important;
 }
 
+#light-dark-toggle:hover{
+  cursor: pointer;
+}
