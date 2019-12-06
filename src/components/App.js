@@ -7,6 +7,18 @@ const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
 
 class App extends Component {
+  
+  componentDidMount() {
+    const lightDarkToggle = document
+      .querySelector("#light-dark-toggle")
+      .addEventListener("click", function() {
+        const all = document.querySelectorAll("*");
+        all.forEach((item) => {
+          item.classList.toggle("dark");
+        })
+      });
+  }
+  
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadAccount();
