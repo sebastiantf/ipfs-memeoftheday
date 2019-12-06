@@ -10,3 +10,13 @@
 label {
   margin: 0 5px 15px 5px;
 }
+
+body.dark {
+  color: white;
+  background-color: #121212;
+}
+
+.navbar.dark {
+  background-color: #212121 !important;
+}
+
