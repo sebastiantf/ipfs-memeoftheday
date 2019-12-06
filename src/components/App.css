@@ -1,4 +1,8 @@
 /* Styles go here */
+body, .navbar {
+  transition: all 0.3s;
+}
+
 .App-logo {
   margin-bottom: 20px;
 }
