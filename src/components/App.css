@@ -28,6 +28,10 @@ body.dark {
   cursor: pointer;
 }
 
+.inactive {
+  display: none;
+}
+
 @media (max-width:768px) {
   .navbar ul {
     display: none;
